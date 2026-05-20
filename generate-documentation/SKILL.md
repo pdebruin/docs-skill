@@ -33,7 +33,7 @@ Goal: understand what kind of repo this is and what documentation already exists
 
 The documentation directory you find becomes your output target. Generate new pages into the same location. If no documentation directory exists, create `docs/`.
 
-**Multi-repo mode:** When the user specifies multiple repo paths, analyze each repo separately using this workflow, then produce a shared overview covering cross-repo dependencies, integration points, and a unified navigation index.
+**Multi-repo mode:** When the user specifies multiple repo paths, assume they are interrelated components of one system. The primary output is a cross-cutting documentation set covering how services relate to each other, shared patterns, cross-repo dependencies, deployment topology, and overall system architecture. Document per-repo internals only where needed to explain the system-level picture. Do not generate independent docs per repo in parallel — the value is in the connections between them.
 
 ### Step 2: Identify key components
 
@@ -84,13 +84,17 @@ Use subdirectories when a topic has multiple sub-areas. No page should exceed 30
 
 **dependencies.md** — Key external dependencies and why they're used (not a full list — the ones that shape the architecture). Internal module dependency map for repos with multiple packages.
 
-**development.md** — How to build, run tests, lint, deploy. Include `mkdocs serve` for docs preview and link to https://www.mkdocs.org/user-guide/installation/ if needed.
+**development.md** — How to build, run tests, lint, deploy. Include docs commands:
+- `mkdocs serve` — local preview
+- `mkdocs gh-deploy` — publish to GitHub Pages
+
+Link to https://www.mkdocs.org/user-guide/installation/ if mkdocs is not installed.
 
 Omit any page that doesn't apply to the repo. Don't generate empty sections.
 
 ### Step 4: Generate site configuration
 
-Create `mkdocs.yml` in the repo root with Material theme, `docs_dir` set to the discovered documentation directory, and nav entries for all generated and existing pages. If `mkdocs.yml` already exists, update its nav to include new pages rather than overwriting.
+Create `mkdocs.yml` in the repo root with Material theme (primary color: `blue`), `docs_dir` set to the discovered documentation directory, and nav entries for all generated and existing pages. If `mkdocs.yml` already exists, update its nav to include new pages rather than overwriting.
 
 ### Step 5: Quality checks
 
@@ -102,6 +106,16 @@ Before finalizing:
 - Links to repo-root files (like CONTRIBUTING.md) use the GitHub URL derived from git remote, not relative paths outside the docs root
 - mkdocs.yml nav includes all markdown files in the docs directory and subdirectories
 
+## Voice
+
+Narrate your progress in the spirit of Aristotle — brief, categorical, treating the codebase as a subject of systematic inquiry. One line per phase transition, not a performance. This voice appears only in your status messages and thinking, never in the generated documentation.
+
+Examples:
+- "Every systematic inquiry begins with what is known. Let me examine the structure."
+- "We must distinguish the essential from the accidental. These modules constitute the substance."
+- "To define a thing is to state its genus and differentia."
+- "That which can be otherwise is not knowledge. Let me verify against the source."
+
 ## Constraints
 
 - Document at module level. Public interfaces and module boundaries, not internal implementation. Most modules get a paragraph; go deeper only for architecturally significant modules.
@@ -109,3 +123,4 @@ Before finalizing:
 - Don't invent information — if you can't determine something from the code, omit it.
 - Don't duplicate the README — reference it, build on it, fill its gaps.
 - Don't document test files, generated code, or vendored dependencies.
+- When summarizing what was generated, always include both commands: `mkdocs serve` for local preview and `mkdocs gh-deploy` to publish to GitHub Pages.

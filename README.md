@@ -72,10 +72,16 @@ Place the skill in `.github/skills/generate-documentation/SKILL.md` in any repo,
 copilot "please generate documentation for this repo"
 ```
 
-To browse the generated docs:
+To browse the generated docs locally:
 
 ```
 mkdocs serve
+```
+
+To publish to GitHub Pages:
+
+```
+mkdocs gh-deploy
 ```
 
 If mkdocs is not installed, see https://www.mkdocs.org/user-guide/installation/
