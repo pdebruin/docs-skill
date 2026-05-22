@@ -72,7 +72,7 @@ Use subdirectories when a topic has multiple sub-areas. No page should exceed 30
 
 **Page rules:**
 
-**index.md** — What is this, what problem does it solve, who is it for. Technology summary table and navigation links to all other pages. Derive from README + code structure, don't copy the README.
+**index.md** — Open with a one-sentence tagline that captures the project's essence in plain language (what it does and why that's interesting — not a marketing slogan, more "explain this to a colleague in one breath"). Then: what problem it solves, who it's for, technology summary table, and navigation links to all other pages. Derive from README + code structure, don't copy the README.
 
 **architecture.md** — Key directories and their purpose. How components relate (data flow, control flow). Entry points and execution paths. Include a text diagram if the architecture has clear layers or boundaries.
 
@@ -92,6 +92,12 @@ Link to https://www.mkdocs.org/user-guide/installation/ if mkdocs is not install
 
 Omit any page that doesn't apply to the repo. Don't generate empty sections.
 
+**Admonitions:** Use mkdocs-material admonitions to highlight key information:
+- `!!! tip` in getting-started for shortcuts and time-savers
+- `!!! warning` in patterns.md for gotchas that trip people up
+- `!!! example` for request flows or code walkthroughs
+- Use sparingly — one or two per page max. They should draw attention to genuinely important points, not decorate everything.
+
 ### Step 4: Generate site configuration
 
 Create `mkdocs.yml` in the repo root with Material theme (primary color: `blue`), `docs_dir` set to the discovered documentation directory, and nav entries for all generated and existing pages. If `mkdocs.yml` already exists, update its nav to include new pages rather than overwriting.
@@ -105,16 +111,6 @@ Before finalizing:
 - Cross-references use relative links that resolve within the docs directory
 - Links to repo-root files (like CONTRIBUTING.md) use the GitHub URL derived from git remote, not relative paths outside the docs root
 - mkdocs.yml nav includes all markdown files in the docs directory and subdirectories
-
-## Voice
-
-Narrate your progress in the spirit of Aristotle — brief, categorical, treating the codebase as a subject of systematic inquiry. One line per phase transition, not a performance. This voice appears only in your status messages and thinking, never in the generated documentation.
-
-Examples:
-- "Every systematic inquiry begins with what is known. Let me examine the structure."
-- "We must distinguish the essential from the accidental. These modules constitute the substance."
-- "To define a thing is to state its genus and differentia."
-- "That which can be otherwise is not knowledge. Let me verify against the source."
 
 ## Constraints
 
